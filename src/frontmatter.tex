@@ -1,4 +1,4 @@
-\title{Authors' Instructions: Preparation of Camera-Ready Contributions to SCITEPRESS Proceedings}
+\title{Benchmarking and Transfer Learning for Hyperparameter Optimization of Graph Neural Networks}
 
 \author{\authorname{Marek Dědič\sup{1, 2}\orcidAuthor{0000-0003-1021-8428} and Michal Bělohlávek\sup{1, 2}\orcidAuthor{0000-0000-0000-0000}}
 \affiliation{\sup{1}Czech Technical University in Prague, Trojanova 13, Praha 2, Czechia}
@@ -6,8 +6,16 @@
 \email{marek@dedic.eu, mbelohla@cisco.com}
 }
 
-\keywords{The paper must have at least one keyword. The text must be set to 9-point font size and without the use of bold or italic font style. For more than one keyword, please use a comma as a separator. Keywords must be titlecased.}
+\keywords{Graph Neural Networks, Hyperparameter Optimization, Meta-Learning, Sequential Model-Based Optimization}
 
-\abstract{The abstract should summarize the contents of the paper and should contain at least 70 and at most 200 words. The text must be set to 9-point font size.}
+\abstract{%
+	Machine learning on graphs is an ever-more popular approach to learning on structured data. However, a critical element for successful model deployment is hyperparameter optimization (HPO), as the choice of parameters (such as learning rate or hidden dimensions) can drastically impact performance. Although classical HPO methods like grid and random search are popular for simplicity, sophisticated strategies such as Gaussian-process Bayesian optimization (GP) and the Tree-structured Parzen Estimator (TPE) promise greater efficiency by adaptively modeling the search space. Despite extensive benchmarking in standard domains (like image and text tasks), there has been no systematic study detailing how these HPO techniques perform specifically on general graph-structured problems.
+%
+	To address this gap, this work presents two main contributions: first, we conduct the first systematic HPO benchmark on Graph Neural Networks (GNNs), evaluating the convergence speed and efficacy of five classical HPO methods (grid search, random search, GP, TPE, and Sobol Quasi-Monte Carlo) for tuning core GraphSAGE hyperparameters across ten standard graph datasets that vary in scale and structural properties. Second, we evaluate a meta-learning approach for hyperparameter transfer by introducing a cross-dataset Random Forest surrogate model. This model learns the interaction between dataset properties (e.g., node count, homophily) and hyperparameter performance by pooling past HPO results. This accumulated meta-knowledge is then used to "warm-start" the optimization process on new, previously unseen datasets, thereby reducing the number of costly model evaluations required to reach peak performance.
+%
+	Our comprehensive empirical evaluation yielded several key findings regarding the classical HPO algorithms. We found that GP and TPE consistently dominated the benchmark, securing the highest score on seven of the ten graph datasets and never ranking lower than third. Classical exhaustive methods (grid and random search) remained robust fallbacks, typically trailing the Bayesian leaders by approximately one percentage point. Sobol QMC, however, underperformed, finishing last on six datasets, suggesting that its theoretical uniformity advantage diminishes rapidly when applied to our eight-hyperparameter search space which requires crucial feedback for effective tuning.
+%
+	Furthermore, the meta-surrogate model demonstrated significant gains in efficiency compared to the strong GP baseline. By leveraging transfer knowledge, the meta-surrogate reached its peak performance in fewer trials than GP on several tasks, confirming a warm-start advantage. The method also achieved similar or superior final scores, particularly on the largest or most structurally distinct graphs (ArXiv, DBLP, Squirrel), and generally exhibited reduced variability across seeds, indicating more stable sampling of high-quality configurations.
+}
 
 \onecolumn \maketitle \normalsize \setcounter{footnote}{0} \vfill
