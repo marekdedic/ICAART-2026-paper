@@ -2,8 +2,10 @@
 
 In this section, we introduce the Cross-RF method, a novel approach for hyper-parameter optimization specifically designed for graph datasets.
 
-Suppose we have a so-called \name{meta-model} \( \mathcal{M}_\rho \) that takes as input a graph dataset \( \mathcal{D} \) and a hyper-parameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a machine learning model trained on \( \mathcal{D} \) with the hyper-parameter configuration \( \lambda \). Using this, we can define the Cross-RF method as follows:
-\[ \tau \left( \mathcal{D}, \mathscr{F}, \tilde{\Lambda}, \rho \right) = \argmax_{\lambda \in \tilde{\Lambda}} \mathcal{M}_\rho \left( \mathcal{D}, \lambda \right) \]
+Suppose we have a graph property descriptor function \( \mathcal{P}: \mathcal{D} \rightarrow \mathvec{d} \) that maps a graph dataset \( \mathcal{D} \) to a vector of numerical properties \( \mathvec{d} \) (e.g., number of nodes, number of edges, average degree, clustering coefficient, etc.). This function allows us to capture the characteristics of different graph datasets in a structured manner. Suppose we also have a so-called \name{meta-model} \( \mathcal{M}_\rho \) that takes as input the properties of a graph dataset \( \mathcal{P} \left( \mathcal{D} \right) \) and a hyper-parameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a machine learning model trained on \( \mathcal{D} \) with the hyper-parameter configuration \( \lambda \). Using this, we can define the Cross-RF hyper-parameter tuning method as follows:
+\begin{equation*}
+	\tau \left( \mathcal{D}, \mathscr{F}, \tilde{\Lambda}, \rho \right) = \argmax_{\lambda \in \tilde{\Lambda}} \mathcal{M}_\rho \left( \mathcal{P} \left( \mathcal{D} \right), \lambda \right)
+\end{equation*}
 where:
 \begin{itemize}
 	\item \( \mathcal{D} \) is the target graph dataset for which we want to optimize hyper-parameters.
@@ -15,4 +17,9 @@ The feasibility of the Cross-RF method relies on the construction of the meta-mo
 
 To build the meta-model \( \mathcal{M}_\rho \), we will use a standard simple regression model (in our case, a Random Forest Regressor, but other regression models could be used as well) trained on a meta-dataset \( \mathcal{H} \).
 The meta-dataset \( \mathcal{H} \) is constructed by collecting dataset properties, hyper-parameter configurations, and corresponding performance metrics across the progress of the training:
-\[ \mathcal{H} = \left\{ \left( D^{(1)}, \lambda^{(1)}, \rho( \mathvec{y}_{\mathcal{D}^{(1)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(1)}} \right) ) \right), \left( D^{(2)}, \lambda^{(2)}, \rho( \mathvec{y}_{\mathcal{D}^{(2)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(2)}} \right) ) \right), \dots \right\} \]
+\begin{equation*}
+	\begin{split}
+		\mathcal{H} = \biggl\{ &\left( \mathcal{P} \left( D^{(1)} \right), \lambda^{(1)}, \rho( \mathvec{y}_{\mathcal{D}^{(1)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(1)}} \right) ) \right), \\
+		&\left( \mathcal{P} \left( D^{(2)} \right), \lambda^{(2)}, \rho( \mathvec{y}_{\mathcal{D}^{(2)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(2)}} \right) ) \right), \dots \biggr\}
+	\end{split}
+\end{equation*}
