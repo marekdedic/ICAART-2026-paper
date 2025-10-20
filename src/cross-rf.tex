@@ -16,10 +16,11 @@ where:
 The feasibility of the Cross-RF method relies on the construction of the meta-model \( \mathcal{M}_\rho \) and on its computational complexity -- namely, the meta-model must be fast enough so that evaluating it on every hyper-parameter configuration from \( \tilde{\Lambda} \) at every step of the optimization isn't prohibitively costly.
 
 To build the meta-model \( \mathcal{M}_\rho \), we will use a standard simple regression model (in our case, a Random Forest Regressor, but other regression models could be used as well) trained on a meta-dataset \( \mathcal{H} \).
-The meta-dataset \( \mathcal{H} \) is constructed by collecting dataset properties, hyper-parameter configurations, and corresponding performance metrics across the progress of the training:
+The meta-dataset \( \mathcal{H} \) is initialized as \( \mathcal{H} = \emptyset \) and constructed by collecting dataset properties, hyper-parameter configurations, and corresponding performance metrics across the progress of the training:
 \begin{equation*}
 	\begin{split}
-		\mathcal{H} = \biggl\{ &\left( \mathcal{P} \left( D^{(1)} \right), \lambda^{(1)}, \rho( \mathvec{y}_{\mathcal{D}^{(1)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(1)}} \right) ) \right), \\
-		&\left( \mathcal{P} \left( D^{(2)} \right), \lambda^{(2)}, \rho( \mathvec{y}_{\mathcal{D}^{(2)}}, \hat{f} \left( \mathmat{X}_{\mathcal{D}^{(2)}} \right) ) \right), \dots \biggr\}
+		\mathcal{H} = \biggl\{ &\left( \mathcal{P} \left( D^{(1)} \right), \lambda^{(1)}, \rho( \mathvec{y}_{\mathcal{D}^{(1)}}, \hat{f}_{\lambda^{(1)}} \left( \mathmat{X}_{\mathcal{D}^{(1)}} \right) ) \right), \\
+		&\left( \mathcal{P} \left( D^{(2)} \right), \lambda^{(2)}, \rho( \mathvec{y}_{\mathcal{D}^{(2)}}, \hat{f}_{\lambda^{(2)}} \left( \mathmat{X}_{\mathcal{D}^{(2)}} \right) ) \right), \dots \biggr\}
 	\end{split}
 \end{equation*}
+An observant reader may have already noticed that in such a construction of the meta-dataset \( \mathcal{H} \), the dataset properties \( \mathcal{P} \left( D^{(i)} \right) \) will all be identical and thus of no benefit to the meta-model. To fix this issue, we must employ a cross-dataset pre-training strategy, where we collect data from multiple different graph datasets \( \mathcal{D}^{(1)}, \mathcal{D}^{(2)}, \dots, \mathcal{D}^{(n)} \) to populate the starting meta-dataset \( \mathcal{H} \). This way, the meta-model \( \mathcal{M}_\rho \) can learn to generalize across different graph datasets based on their properties. The datasets used in the pre-training phase should ideally be diverse and representative of the types of graphs we expect to encounter in practice and should, crucially for the validity of the evaluation of the Cross-RF method, not contain the dataset \( \mathcal{D} \) on which the method is ultimately evaluated.
