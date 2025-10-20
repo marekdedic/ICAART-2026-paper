@@ -24,3 +24,43 @@ The meta-dataset \( \mathcal{H} \) is initialized as \( \mathcal{H} = \emptyset 
 	\end{split}
 \end{equation*}
 An observant reader may have already noticed that in such a construction of the meta-dataset \( \mathcal{H} \), the dataset properties \( \mathcal{P} \left( D^{(i)} \right) \) will all be identical and thus of no benefit to the meta-model. To fix this issue, we must employ a cross-dataset pre-training strategy, where we collect data from multiple different graph datasets \( \mathcal{D}^{(1)}, \mathcal{D}^{(2)}, \dots, \mathcal{D}^{(n)} \) to populate the starting meta-dataset \( \mathcal{H} \). This way, the meta-model \( \mathcal{M}_\rho \) can learn to generalize across different graph datasets based on their properties. The datasets used in the pre-training phase should ideally be diverse and representative of the types of graphs we expect to encounter in practice and should, crucially for the validity of the evaluation of the Cross-RF method, not contain the dataset \( \mathcal{D} \) on which the method is ultimately evaluated.
+
+\subsection{Dataset Property Descriptor}
+
+\todo{Review the table and the next par}
+Table~\ref{tab:graph-properties} lists the graph dataset properties considered in our experiments. These properties were selected based on their relevance to graph structure, node attributes, and the specific task at hand (e.g., node classification). The properties encompass a range of characteristics, from basic metrics like node count and average degree to more complex measures such as assortativity and homophily. By incorporating these diverse properties into the descriptor function \( \mathcal{P} \), we aim to capture a comprehensive representation of each graph dataset, which is essential for the effective training of the meta-model \( \mathcal{M}_\rho \).
+
+\begin{table*}[h]
+	\caption{Graph dataset properties considered.}
+	\label{tab:graph-properties}
+	\centering
+	\begin{tabularx}{\linewidth}{XcccX}
+		\toprule
+		\multirow{2}{*}{\textbf{Graph Property}}           & \multicolumn{3}{c}{\textbf{Awareness}}                   & \multirow{2}{*}{\textbf{Description / Definition}} \\
+		\cmidrule(lr){2-4}
+		                                                   & \textbf{Task} & \textbf{Structure} & \textbf{Attributes} & \\
+		\midrule
+		\textbf{Node count}                                & \crossmark    & \crossmark         & \crossmark          & Number of nodes. \\
+		\textbf{Edge count}                                & \crossmark    & \crossmark         & \crossmark          & Number of edges. \\
+		\textbf{Number of components}                      & \crossmark    & \checkmark         & \crossmark          & Number of connected components of the graph. \\
+		\textbf{Average node degree}                       & \crossmark    & \checkmark         & \crossmark          & Average node degree in the graph. \\
+		\textbf{Global assortativity}                      & \crossmark    & \checkmark         & \crossmark          & Measure of the tendency of nodes to connect with other similar nodes, rather than dissimilar nodes~[9]. \\
+		\textbf{Attribute similarity}                      & \crossmark    & \checkmark         & \checkmark          & Average cosine similarity of attributes across all edges in the graph. \\
+		\textbf{Attribute homophily}                       & \checkmark    & \checkmark         & \crossmark          & Measure of how clustered together are nodes with similar attributes. \\
+		\textbf{Edge homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of edges connecting nodes of the same class. \\
+		\textbf{Node homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of node neighbours having the same class as the node in question, averaged over all nodes. \\
+		\textbf{Class homophily}                           & \checkmark    & \checkmark         & \crossmark          & A modification of node homophily that is invariant to the number of classes. \\
+		\textbf{Ratio of positive nodes of degree $>1$}    & \checkmark    & \checkmark         & \crossmark          & Ratio of positive nodes with degree greater than one. \\
+		\textbf{Fraction of positive nodes of degree $>2$} & \checkmark    & \checkmark         & \crossmark          & The fraction of positive nodes with degree greater than two, out of those with degree greater than one. \\
+		\textbf{Average positive node degree}              & \checkmark    & \checkmark         & \crossmark          & Average node degree in the sub-graph restricted to nodes from $V^1$. \\
+		\textbf{Relative presence of positive edges}       & \checkmark    & \checkmark         & \crossmark          & Number of edges connecting positive nodes, divided by the number of edges that would be present in a theoretical clique constructed of all positive nodes. \\
+		\textbf{Positive attribute similarity}             & \checkmark    & \crossmark         & \checkmark          & Avg.\ feature similarity within positive class. \\
+		\textbf{Positive to negative attribute similarity} & \checkmark    & \crossmark         & \checkmark          & Avg.\ feature similarity of positive vs negative nodes. \\
+		\textbf{Negative to positive attribute similarity} & \checkmark    & \crossmark         & \checkmark          & Avg.\ feature similarity of negative vs positive nodes. \\
+		\textbf{Adjusted homophily}                        & \checkmark    & \checkmark         & \crossmark          & Homophily adjusted for degree–class distribution. \\
+		\textbf{Node label informativeness}                & \checkmark    & \checkmark         & \crossmark          & Mutual‐information‐based measure of how informative node labels are about the graph’s connectivity. \\
+		\textbf{Balanced accuracy}                         & \checkmark    & \checkmark         & \crossmark          & Class‐averaged fraction of edges connecting nodes to same‐class neighbors. \\
+		\textbf{Adjusted accuracy}                         & \checkmark    & \checkmark         & \crossmark          & Accuracy metric adjusted to range $[0,1]$ based on balanced accuracy. \\
+		\bottomrule
+	\end{tabularx}
+\end{table*}
