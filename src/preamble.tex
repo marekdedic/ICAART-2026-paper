@@ -1,7 +1,7 @@
 \usepackage{epsfig}
 %\usepackage{subcaption}
 %\usepackage{calc}
-%\usepackage{amssymb}
+\usepackage{amssymb}
 %\usepackage{amstext}
 \usepackage{amsmath}
 %\usepackage{amsthm}
@@ -21,8 +21,9 @@
 
 \newcommand{\name}{\textit}
 \newcommand{\crossmark}{\ding{56}}
-\newcommand{\checkmark}{\ding{52}}
+\renewcommand{\checkmark}{\ding{52}}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\mathfield}[1]{\ensuremath{\mathbb{#1}}}
 \newcommand{\mathvec}[1]{\ensuremath{\boldsymbol{#1}}}
 \newcommand{\mathmat}[1]{\ensuremath{\boldsymbol{#1}}}
