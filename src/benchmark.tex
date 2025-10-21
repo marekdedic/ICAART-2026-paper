@@ -3,7 +3,7 @@
 In this section, we present a benchmark study to evaluate the performance of different hyperparameter optimization (HPO) methods on Graph Neural Networks (GNNs). We focus on assessing the efficiency and effectiveness of various HPO techniques in optimizing GNN architectures for node classification tasks, which are the most common tasks and are the cornerstones of other techniques for e.g.\ graph classification as well.
 
 \subsection{Experimental Setup}
-We conduct our experiments on 10 standard graph datasets\todo{List them with citations}.
+We conduct our experiments on 10 standard graph datasets. The 4 \enquote{small} datasets were the KarateClub dataset \cite{zachary_information_1977}, the datasets Cora and CiteSeer \cite{yang_revisiting_2016}, which were used with the \enquote{full} train-test split as in \cite{chen_fastgcn_2018}, and the Squirrel dataset \cite{rozemberczki_multi-scale_2021}. Five medium sized datasets were also used, the PubMed dataset \cite{yang_revisiting_2016}, the DBLP dataset and the full version of the Cora dataset \cite{bojchevski_deep_2018}, the Computers dataset \cite{shchur_pitfalls_2019} and the Flickr dataset \cite{zeng_graphsaint_2019}. Finally, one large dataset was used, the OGB ArXiv dataset \cite{hu_open_2021}.
 
 We evaluate the following HPO methods:
 \begin{itemize}
@@ -23,7 +23,7 @@ Each HPO method and dataset combination was evaluated independently 10 times to 
 \end{itemize}
 The values of \( M \) and \( T \) were set to ensure a fair comparison across all methods, but were different for small, medium and large datasets to account for the varying training times. Their values are listed in Table~\ref{tab:stopping-criteria}.
 
-\begin{table}[h]
+\begin{table}
 	\caption{HPO stopping criteria based on dataset size.}
 	\label{tab:stopping-criteria}
 	\centering
@@ -53,7 +53,7 @@ In our experiments, we used the well-studied and general framework of GraphSAGE 
 \end{itemize}
 Table~\ref{tab:search-space} provides a detailed overview of the search space for each dataset. The ranges were chosen based on prior art on GNNs \cite{bronstein_geometric_2021, hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
 
-\begin{table*}[h]
+\begin{table*}
 	\caption{Hyperparameter search spaces based on dataset sizes.}
 	\label{tab:search-space}
 	\resizebox{\linewidth}{!}{%

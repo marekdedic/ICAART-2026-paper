@@ -29,7 +29,7 @@ An observant reader may have already noticed that in such a construction of the 
 
 Table~\ref{tab:graph-properties}\todo{Add references} lists the graph dataset properties considered in our experiments. These properties were selected based on their relevance to graph structure, node attributes, and the specific task at hand (Table~\ref{tab:graph-properties} denotes which property relates to each of these). The properties encompass a range of characteristics, from basic metrics like node count and average degree to more complex measures such as assortativity and homophily. By incorporating these diverse properties into the descriptor function \( \mathcal{P} \), we aim to capture a comprehensive representation of each graph dataset, which is essential for the effective training of the meta-model \( \mathcal{M}_\rho \). For properties that depend on a positive class (e.g., "Average positive node degree"), we take the average over all possible reductions of the dataset to a binary classification task in a one-vs-others manner.
 
-\begin{table*}[h]
+\begin{table*}
 	\caption{Graph dataset properties considered.}
 	\label{tab:graph-properties}
 	\centering
