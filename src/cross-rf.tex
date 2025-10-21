@@ -27,8 +27,7 @@ An observant reader may have already noticed that in such a construction of the 
 
 \subsection{Dataset Property Descriptor}
 
-\todo{Review the table and the next par}
-Table~\ref{tab:graph-properties} lists the graph dataset properties considered in our experiments. These properties were selected based on their relevance to graph structure, node attributes, and the specific task at hand (e.g., node classification). The properties encompass a range of characteristics, from basic metrics like node count and average degree to more complex measures such as assortativity and homophily. By incorporating these diverse properties into the descriptor function \( \mathcal{P} \), we aim to capture a comprehensive representation of each graph dataset, which is essential for the effective training of the meta-model \( \mathcal{M}_\rho \).
+Table~\ref{tab:graph-properties}\todo{Add references} lists the graph dataset properties considered in our experiments. These properties were selected based on their relevance to graph structure, node attributes, and the specific task at hand (Table~\ref{tab:graph-properties} denotes which property relates to each of these). The properties encompass a range of characteristics, from basic metrics like node count and average degree to more complex measures such as assortativity and homophily. By incorporating these diverse properties into the descriptor function \( \mathcal{P} \), we aim to capture a comprehensive representation of each graph dataset, which is essential for the effective training of the meta-model \( \mathcal{M}_\rho \). For properties that depend on a positive class (e.g., "Average positive node degree"), we take the average over all possible reductions of the dataset to a binary classification task in a one-vs-others manner.
 
 \begin{table*}[h]
 	\caption{Graph dataset properties considered.}
@@ -36,9 +35,9 @@ Table~\ref{tab:graph-properties} lists the graph dataset properties considered i
 	\centering
 	\begin{tabularx}{\linewidth}{XcccX}
 		\toprule
-		\multirow{2}{*}{\textbf{Graph Property}}           & \multicolumn{3}{c}{\textbf{Awareness}}                   & \multirow{2}{*}{\textbf{Description / Definition}} \\
+		\multirow{2}{*}{\textbf{Graph Property}}           & \multicolumn{3}{c}{\textbf{Relates to}}                   & \multirow{2}{*}{\textbf{Description / Definition}} \\
 		\cmidrule(lr){2-4}
-		                                                   & \textbf{Task} & \textbf{Structure} & \textbf{Attributes} & \\
+		                                                   & \textbf{Task} & \textbf{Struct.} & \textbf{Attrs.} & \\
 		\midrule
 		\textbf{Node count}                                & \crossmark    & \crossmark         & \crossmark          & Number of nodes. \\
 		\textbf{Edge count}                                & \crossmark    & \crossmark         & \crossmark          & Number of edges. \\
