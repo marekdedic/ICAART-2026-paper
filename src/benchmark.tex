@@ -1,0 +1,90 @@
+\section{\uppercase{A HPO Benchark on Graph Neural Networks}}
+
+In this section, we present a benchmark study to evaluate the performance of different hyperparameter optimization (HPO) methods on Graph Neural Networks (GNNs). We focus on assessing the efficiency and effectiveness of various HPO techniques in optimizing GNN architectures for node classification tasks, which are the most common tasks and are the cornerstones of other techniques for e.g.\ graph classification as well.
+
+\subsection{Experimental Setup}
+We conduct our experiments on 10 standard graph datasets\todo{List them with citations}.
+
+We evaluate the following HPO methods:
+\begin{itemize}
+	\item Grid Search
+	\item Random Search
+	\item Gaussian process-based Bayesian Optimization \cite{rasmussen_gaussian_2003}
+	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012}
+	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}
+\end{itemize}
+The methods were all implemented using the Optuna framework \cite{akiba_optuna_2019}. All algorithms run with the defualt settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.\todo{Maybe add a table of all settings?}
+
+\subsection{Evaluation Routine}
+Each HPO method and dataset combination was evaluated independently 10 times to account for variability in performance due to random initialization and stochastic training processes. For each study, we used 2 stopping criteria to limit the number of trials:
+\begin{itemize}
+	\item \textbf{Patience}: If no improvement in validation performance was observed for \( M \) consecutive trials, the optimization process was terminated early.
+	\item \textbf{Wall-clock time}: Each HPO method was allocated a maximum wall-clock time budget of \( T \) hours to complete its trials.
+\end{itemize}
+The values of \( M \) and \( T \) were set to ensure a fair comparison across all methods, but were different for small, medium and large datasets to account for the varying training times. Their values are listed in Table~\ref{tab:stopping-criteria}.
+
+\begin{table}[h]
+	\caption{HPO stopping criteria based on dataset size.}
+	\label{tab:stopping-criteria}
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		Dataset Size & \( M \) [trials] & \( T \) [hours] \\
+		\midrule
+		Small        & 30               & 4               \\
+		Medium       & 20               & 8               \\
+		Large        & 10               & 12              \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Search Spaces}
+
+In our experiments, we used the well-studied and general framework of GraphSAGE \cite{hamilton_inductive_2017} as the base GNN architecture for node classification tasks. We defined a search space encompassing 8 hyperparameters that are critical to the performance of GraphSAGE models. The hyperparameters included in our search space are as follows:
+\begin{itemize}
+	\item \textbf{Number of layers}: The depth of the GNN.
+	\item \textbf{Hidden units per layer}: The number of hidden units in each layer.
+	\item \textbf{Activation function}: The non-linear activation function applied after each layer.
+	\item \textbf{Optimizer}: The optimization algorithm used for training the model.
+	\item \textbf{Dropout rate}: The dropout probability applied to the layers.
+	\item \textbf{Aggregation function}: The method used to aggregate neighbor information.
+	\item \textbf{\( L_2 \) regularization weight}: The weight of the \( L_2 \) regularization term.
+	\item \textbf{Learning rate}: The step size for the optimizer.
+\end{itemize}
+Table~\ref{tab:search-space} provides a detailed overview of the search space for each dataset. The ranges were chosen based on prior art on GNNs \cite{bronstein_geometric_2021, hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
+
+\begin{table*}[h]
+	\caption{Hyperparameter search spaces based on dataset sizes.}
+	\label{tab:search-space}
+	\resizebox{\linewidth}{!}{%
+		\begin{tabular}{lcccccccccc}
+			\toprule
+			\textbf{Dataset} & \textbf{Ep.} & \textbf{Lyrs.} & \textbf{HW} & \textbf{Act.}                                & \textbf{Opt.}                                & \textbf{Drop.}                          & \textbf{Agg.}                              & \textbf{ES} & \textbf{L2}                                       & \textbf{LR}                                          \\
+			\midrule
+			\multicolumn{11}{l}{\textit{Small datasets}} \\
+			\addlinespace
+			KarateClub       & 500          & 1--2           & 16--32      & \multirow{12}{*}{\shortstack{ReLU \\ PReLU}} & \multirow{12}{*}{\shortstack{Adam \\ AdamW}} & \multirow{12}{*}{\shortstack{0 \\ 0.5}} & \multirow{12}{*}{\shortstack{Mean \\ Max}} & 10          & 0, \( 10^{-3} \), \( 10^{-2} \)                   & \( 10^{-2} \), \( 10^{-3} \), \( 5 \times 10^{-4} \) \\
+			Cora             & 200          & 1--3           & 16--64      &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			CiteSeer         & 200          & 1--3           & 16--64      &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Squirrel         & 500          & 1--3           & 32--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			\addlinespace
+			\multicolumn{11}{l}{\textit{Medium datasets}} \\
+			\addlinespace
+			PubMed           & 200          & 1--3           & 16--64      &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			CoraFull         & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			DBLP             & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Computers        & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Flickr           & 100          & 2--3           & 128--256    &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 5 \times 10^{-3} \), \( 10^{-3} \)                \\
+			\addlinespace
+			\multicolumn{11}{l}{\textit{Large datasets}} \\
+			\addlinespace
+			ArXiv            & 150          & 2--3           & 256--512    &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 10^{-2} \), \( 5 \times 10^{-3} \)                \\
+			\bottomrule
+		\end{tabular}
+	}
+	\vspace{0.05cm}
+
+	{\footnotesize \textbf{Abbreviations}: \textbf{Ep.}: Epochs, \textbf{Lyrs.}: Number of layers, \textbf{HW}: Hidden Layer Width, \textbf{Act.}: Activation Fn., \textbf{Opt.}: Optimizer, \textbf{Drop.}: Dropout Rate, \textbf{Agg.}: Aggregation Fn., \textbf{ES}: Early Stopping patience, \textbf{L2}: \( L_2 \) Regularization, \textbf{LR}: Learning Rate.}
+\end{table*}
+
+\subsection{Results and Analysis}
