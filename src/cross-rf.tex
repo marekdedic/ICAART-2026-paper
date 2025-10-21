@@ -2,17 +2,10 @@
 
 In this section, we introduce the Cross-RF method, a novel approach for hyper-parameter optimization specifically designed for graph datasets.
 
-Suppose we have a \name{graph property descriptor} function \( \mathcal{P} : \mathrm{D} \to \mathfield{R}^d \) that maps a graph dataset \( \mathcal{D} \) to a vector of numerical properties \( \mathvec{d} \) (e.g., number of nodes, number of edges, average degree, etc.). This function allows us to capture the characteristics of different graph datasets in a structured manner. Suppose we also have a so-called \name{meta-model} \( \mathcal{M}_\rho : \mathfield{R}^d \times \boldsymbol\Lambda \to \mathfield{R} \) that takes as input the properties of a graph dataset \( \mathcal{P} \left( \mathcal{D} \right) \) and a hyper-parameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a machine learning model trained on \( \mathcal{D} \) with the hyper-parameter configuration \( \lambda \). Using this, we can define the Cross-RF hyper-parameter tuning method as follows:
+Suppose we have a \name{graph property descriptor} function \( \mathcal{P} : \mathrm{D} \to \mathfield{R}^d \) that maps a graph dataset \( \mathcal{D} \) to a vector of numerical properties \( \mathvec{d} \) (e.g., number of nodes, number of edges, average degree, etc.). This function allows us to capture the characteristics of different graph datasets in a structured manner. Suppose we also have a so-called \name{meta-model} \( \mathcal{M}_\rho : \mathfield{R}^d \times \boldsymbol\Lambda \to \mathfield{R} \) that takes as input the properties of a graph dataset \( \mathcal{P} \left( \mathcal{D} \right) \) and a hyper-parameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a machine learning model \( \hat{f}_\lambda \) trained on \( \mathcal{D} \) with the hyper-parameter configuration \( \lambda \). Using this, we can define the Cross-RF hyper-parameter tuning method as follows:
 \begin{equation*}
 	\tau \left( \mathcal{D}, \mathscr{F}, \tilde{\Lambda}, \rho \right) = \argmax_{\lambda \in \tilde{\Lambda}} \mathcal{M}_\rho \left( \mathcal{P} \left( \mathcal{D} \right), \lambda \right)
 \end{equation*}
-where:
-\begin{itemize}
-	\item \( \mathcal{D} \) is the target graph dataset for which we want to optimize hyper-parameters.
-	\item \( \mathscr{F} \) is an inducer function that maps hyper-parameter configurations to machine learning models.
-	\item \( \tilde{\Lambda} \) is a predefined set of hyper-parameter configurations to be evaluated.
-	\item \( \rho \) is the performance metric we aim to optimize (i.e.\ the outer loss).
-\end{itemize}
 The feasibility of the Cross-RF method relies on the construction of the meta-model \( \mathcal{M}_\rho \) and on its computational complexity -- namely, the meta-model must be fast enough so that evaluating it on every hyper-parameter configuration from \( \tilde{\Lambda} \) at every step of the optimization isn't prohibitively costly.
 
 To build the meta-model \( \mathcal{M}_\rho \), we will use a standard simple regression model (in our case, a Random Forest Regressor, but other regression models could be used as well) trained on a meta-dataset \( \mathcal{H} \).
