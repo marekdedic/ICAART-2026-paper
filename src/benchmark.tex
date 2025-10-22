@@ -88,4 +88,25 @@ Table~\ref{tab:search-space} provides a detailed overview of the search space fo
 \end{table*}
 
 \subsection{Results and Analysis}
-\todo[inline]{Results}
+Table~\ref{tab:final-scores} lists the final F1 scores for each HPO method for each dataset.
+
+\begin{table*}
+	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
+	\label{tab:final-scores}
+	\centering
+	\begin{tabular}{lccccc}
+		\toprule
+		\textbf{Dataset} & \textbf{Random}    & \textbf{Grid} & \textbf{GP}        & \textbf{TPE}       & \textbf{QMC}       \\
+		\midrule
+		Cora             & 0.8560             & 0.8491        & \textbf{0.8747}    & \underline{0.8659} & 0.8351             \\
+		CiteSeer         & 0.7146             & 0.7046        & \underline{0.7172} & \textbf{0.7236}    & 0.7089             \\
+		Squirrel         & \underline{0.3659} & 0.3605        & 0.3544             & \textbf{0.3755}    & 0.3549             \\
+		PubMed           & 0.8515             & 0.8457        & \textbf{0.8825}    & \underline{0.8643} & 0.8596             \\
+		CoraFull         & 0.6211             & 0.6371        & \underline{0.6450} & \textbf{0.6555}    & 0.6385             \\
+		DBLP             & 0.8051             & 0.7996        & \textbf{0.8118}    & 0.8085             & \underline{0.8088} \\
+		Computers        & 0.6973             & 0.5999        & \textbf{0.8945}    & \underline{0.8047} & 0.7428             \\
+		Flickr           & 0.0864             & 0.0961        & \textbf{0.1908}    & \underline{0.1460} & 0.1069             \\
+		ArXiv            & 0.3950             & 0.3796        & \underline{0.3987} & \textbf{0.4098}    & 0.3955             \\
+		\bottomrule
+	\end{tabular}
+\end{table*}
