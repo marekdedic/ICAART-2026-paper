@@ -4,9 +4,11 @@ In order to evaluate the proposed Cross-RF method, we conducted experiments on t
 
 \subsection{Meta-model architecture}
 
-The meta-model used in the Cross-RF method is a Random Forest regressor \cite{breiman_random_2001}, implemented using the \texttt{RandomForestRegressor} class from the \texttt{scikit-learn} library \cite{pedregosa_scikit-learn_2011}. The Random Forest was configured with 100 trees, and other hyper-parameters were set to their default values, except for the maximum number of features to consider for each split, which was set to \( 30\% \) of the total number of features.
+The metamodel used in the Cross-RF method is a Random Forest regressor \cite{breiman_random_2001}, implemented using the \texttt{RandomForestRegressor} class from the \texttt{scikit-learn} library \cite{pedregosa_scikit-learn_2011}. The Random Forest was configured with 100 trees, and other hyper-parameters were set to their default values, except for the maximum number of features to consider for each split, which was set to \( 30\% \) of the total number of features.
 
 Several small implementation details are worth mentioning. First, in each step of the optimisation, all of the already evaluated configurations from \( \mathcal{H} \) are excluded from the set of candidate configurations \( \tilde{\Lambda} \), so that the same configuration isn't needlessly re-evaluated. Second, all categorical features are one-hot encoded before being passed to the Random Forest model. Finally, in all our experiments, we used the F1-score as the performance metric \( \rho \) to be optimised.
+
+For the construction of the metadataset \( \mathcal{H} \) for a Cross-RF model trained on a dataset \( \mathcal{D} \), we used the remaining 8 datasets from the benchmark, excluding \( \mathcal{D} \).
 
 \subsection{Results and Analysis}
 \todo[inline]{Results}
