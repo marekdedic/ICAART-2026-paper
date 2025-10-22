@@ -88,11 +88,11 @@ Table~\ref{tab:search-space} provides a detailed overview of the search space fo
 \end{table*}
 
 \subsection{Results and Analysis}
-Table~\ref{tab:final-scores} lists the final F1 scores for each HPO method for each dataset.
+Table~\ref{tab:benchmark-final-scores} lists the final F1 scores for each HPO method for each dataset.
 
 \begin{table*}
 	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
-	\label{tab:final-scores}
+	\label{tab:benchmark-final-scores}
 	\centering
 	\begin{tabular}{lccccc}
 		\toprule
@@ -110,3 +110,12 @@ Table~\ref{tab:final-scores} lists the final F1 scores for each HPO method for e
 		\bottomrule
 	\end{tabular}
 \end{table*}
+
+\begin{figure*}
+	\centering
+	\resizebox{\linewidth}{!}{%
+		\input{images/benchmark_ranks/benchmark_ranks.pgf}
+	}
+	\caption{Ranks-over-time of the benchmarked HPO methods over the progress of the optimization.}
+	\label{fig:benchmark-ranks}
+\end{figure*}
