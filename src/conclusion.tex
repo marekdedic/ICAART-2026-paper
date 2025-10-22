@@ -1,4 +1,26 @@
-\section{\uppercase{Conclusion}}
+\section{\uppercase{Conclusion and Future work}}
 \label{sec:conclusion}
 
-\todo[inline]{Fill in}
+In this work, we addressed the critical and often-overlooked challenge of hyperparameter optimization (HPO) for Graph Neural Networks (GNNs). While GNNs are increasingly powerful, their performance is highly sensitive to hyperparameter choices, and the computational cost of HPO remains a significant barrier to their effective deployment.
+
+Our first contribution was to conduct a systematic benchmark of five classical HPO methods, evaluating their efficiency and effectiveness on a diverse set of graph-structured problems. The results clearly demonstrate that sophisticated sequential model-based optimization (SMBO) strategies, such as the Tree-structured Parzen Estimator and Bayesian Optimization, significantly outperform simpler methods like random and grid search. These findings provide concrete, evidence-based recommendations for practitioners, guiding them toward more efficient optimization strategies that yield superior model performance in fewer trials.
+
+Our second contribution was the introduction and validation of a transfer-learning framework for GNN hyperparameter optimization. By leveraging meta-learning, we demonstrated that knowledge from previously completed HPO tasks can be effectively transferred to new, unseen datasets. This approach successfully "warm-starts" the optimization process, substantially reducing the number of evaluations required to find a high-performing set of hyperparameters.
+
+\subsection{Future Work}
+
+The first, perhaps most immediate, direction for future work is to broaden our benchmark by:
+\begin{itemize}
+	\item Including a broader range of GNN architectures, such as teh GAT architecture, to assess the generalizability of our findings across different model types.
+	\item Considering other performance metrics such as accuracy or AUC-ROC, to provide a more comprehensive evaluation of HPO methods.
+	\item Comparing to newer HPO methods, including those specifically designed for deep learning and GNNs, to evaluate their performance relative to the classical methods studied here.
+\end{itemize}
+
+Other, less immediate, but maybe more exciting directions for future work include:
+\begin{itemize}
+	\item Pre-training the metamodel on sysnthetic datasets generated from known graph models (e.g. Erdős–Rényi models, stochastic block models, preferential attachment models) to evaluate whether this can further improve transfer learning performance by providing a richer and more diverse training set for the meta-learner.
+	\item Using a different metamodel architecture which is better suited to continuous search spaces.
+	\item Incorporatiing the metamodel as a surrogate model within an SMBO framework, to combine the benefits of both approaches.
+\end{itemize}
+
+In summary, this work lays a solid foundation for more efficient and effective hyperparameter optimization in GNNs, with significant implications for their practical deployment in real-world applications. The proposed Cross-RF method is promising, however there remains ample opportunity for further research and refinement to fully realize its potential.
