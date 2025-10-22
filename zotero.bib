@@ -96,6 +96,19 @@
 	keywords = {Computer Science - Machine Learning, Computer Science - Social and Information Networks, Statistics - Machine Learning},
 }
 
+@inproceedings{yang_diverse_2021,
+	title = {Diverse {Message} {Passing} for {Attribute} with {Heterophily}},
+	volume = {34},
+	url = {https://proceedings.neurips.cc/paper/2021/hash/253614bbac999b38b5b60cae531c4969-Abstract.html},
+	abstract = {Most of the existing GNNs can be modeled via the Uniform Message Passing framework. This framework considers all the attributes of each node in its entirety, shares the uniform propagation weights along each edge,  and focuses on the uniform weight learning. The design of this framework possesses two prerequisites, the simplification of homophily and heterophily to the node-level property and the ignorance of attribute differences. Unfortunately, different attributes possess diverse characteristics. In this paper, the network homophily rate defined with  respect to the node labels is extended to attribute homophily rate by taking the attributes as weak labels. Based on this attribute homophily rate, we propose a Diverse Message Passing (DMP) framework, which specifies every attribute propagation weight on each edge. Besides, we propose two specific strategies to significantly reduce the computational complexity of DMP to prevent the overfitting issue.  By investigating the spectral characteristics, existing spectral GNNs are actually equivalent to a degenerated version of DMP.  From the perspective of numerical optimization, we provide a theoretical analysis to demonstrate DMP's powerful representation ability and the ability of alleviating the over-smoothing issue.  Evaluations on various  real networks demonstrate the superiority of our DMP on  handling the networks with heterophily  and alleviating the over-smoothing issue, compared to the existing state-of-the-arts.},
+	urldate = {2023-06-29},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems}},
+	publisher = {Curran Associates, Inc.},
+	author = {Yang, Liang and Li, Mengzhe and Liu, Liyang and niu, bingxin and Wang, Chuan and Cao, Xiaochun and Guo, Yuanfang},
+	year = {2021},
+	pages = {4751--4763},
+}
+
 @inproceedings{yang_revisiting_2016,
 	address = {New York, NY, USA},
 	title = {Revisiting {Semi}-{Supervised} {Learning} with {Graph} {Embeddings}},
@@ -141,6 +154,21 @@
 	annote = {Comment: Fix dataset bug in ogbg-code},
 }
 
+@inproceedings{lim_large_2021,
+	address = {online},
+	title = {Large {Scale} {Learning} on {Non}-{Homophilous} {Graphs}: {New} {Benchmarks} and {Strong} {Simple} {Methods}},
+	volume = {34},
+	shorttitle = {Large {Scale} {Learning} on {Non}-{Homophilous} {Graphs}},
+	url = {\url{https://proceedings.neurips.cc/paper/2021/file/ae816a80e4c1c56caa2eb4e1819cbb2f-Paper.pdf}},
+	abstract = {Many widely used datasets for graph machine learning tasks have generally been homophilous, where nodes with similar labels connect to each other. Recently, new Graph Neural Networks (GNNs) have been developed that move beyond the homophily regime; however, their evaluation has often been conducted on small graphs with limited application domains. We collect and introduce diverse non-homophilous datasets from a variety of application areas that have up to 384x more nodes and 1398x more edges than prior datasets. We further show that existing scalable graph learning and graph minibatching techniques lead to performance degradation on these non-homophilous datasets, thus highlighting the need for further work on scalable non-homophilous methods. To address these concerns, we introduce LINKX --- a strong simple method that admits straightforward minibatch training and inference. Extensive experimental results with representative simple methods and GNNs across our proposed datasets show that LINKX achieves state-of-the-art performance for learning on non-homophilous graphs. Our codes and data are available at https://github.com/CUAI/Non-Homophily-Large-Scale.},
+	urldate = {2022-11-28},
+	booktitle = {Advances in {Neural} {Information} {Processing} {Systems}},
+	publisher = {Curran Associates, Inc.},
+	author = {Lim, Derek and Hohne, Felix and Li, Xiuyu and Huang, Sijia Linda and Gupta, Vaishnavi and Bhalerao, Omkar and Lim, Ser Nam},
+	year = {2021},
+	pages = {20887--20902},
+}
+
 @inproceedings{zhu_beyond_2020,
 	address = {online},
 	title = {Beyond {Homophily} in {Graph} {Neural} {Networks}: {Current} {Limitations} and {Effective} {Designs}},
@@ -170,6 +198,22 @@
 	year = {2003},
 	note = {Publisher: American Physical Society},
 	pages = {026126},
+}
+
+@misc{pei_geom-gcn_2020,
+	title = {Geom-{GCN}: {Geometric} {Graph} {Convolutional} {Networks}},
+	shorttitle = {Geom-{GCN}},
+	url = {http://arxiv.org/abs/2002.05287},
+	doi = {10.48550/arXiv.2002.05287},
+	abstract = {Message-passing neural networks (MPNNs) have been successfully applied to representation learning on graphs in a variety of real-world applications. However, two fundamental weaknesses of MPNNs' aggregators limit their ability to represent graph-structured data: losing the structural information of nodes in neighborhoods and lacking the ability to capture long-range dependencies in disassortative graphs. Few studies have noticed the weaknesses from different perspectives. From the observations on classical neural network and network geometry, we propose a novel geometric aggregation scheme for graph neural networks to overcome the two weaknesses. The behind basic idea is the aggregation on a graph can benefit from a continuous space underlying the graph. The proposed aggregation scheme is permutation-invariant and consists of three modules, node embedding, structural neighborhood, and bi-level aggregation. We also present an implementation of the scheme in graph convolutional networks, termed Geom-GCN (Geometric Graph Convolutional Networks), to perform transductive learning on graphs. Experimental results show the proposed Geom-GCN achieved state-of-the-art performance on a wide range of open datasets of graphs. Code is available at https://github.com/graphdml-uiuc-jlu/geom-gcn.},
+	urldate = {2022-11-28},
+	publisher = {arXiv},
+	author = {Pei, Hongbin and Wei, Bingzhe and Chang, Kevin Chen-Chuan and Lei, Yu and Yang, Bo},
+	month = feb,
+	year = {2020},
+	note = {arXiv:2002.05287 [cs, stat]},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Statistics - Machine Learning},
+	annote = {Comment: Published as a conference paper at ICLR 2020},
 }
 
 @article{ebadi_hyperparameter_2025,
