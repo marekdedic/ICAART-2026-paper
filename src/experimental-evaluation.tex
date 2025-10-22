@@ -10,3 +10,33 @@ Several small implementation details are worth mentioning. First, in each step o
 
 \subsection{Results and Analysis}
 \todo[inline]{Results}
+
+\begin{table*}
+	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
+	\label{tab:cross-rf-final-scores}
+	\centering
+	\begin{tabular}{lccccc}
+		\toprule
+		\textbf{Dataset} & \textbf{BO}        & \textbf{TPE}       & \textbf{Cross-RF}  \\
+		\midrule
+		Cora             & \textbf{0.8747}    & 0.8659             & \underline{0.8727} \\
+		CiteSeer         & \underline{0.7172} & \textbf{0.7236}    & 0.7095             \\
+		Squirrel         & 0.3544             & \underline{0.3755} & \textbf{0.3769}    \\
+		PubMed           & \textbf{0.8825}    & 0.8643             & \underline{0.8807} \\
+		CoraFull         & \underline{0.6450} & \textbf{0.6555}    & 0.6426             \\
+		DBLP             & \underline{0.8118} & 0.8085             & \textbf{0.8123}    \\
+		Computers        & \underline{0.8945} & 0.8047             & \textbf{0.9023}    \\
+		Flickr           & \underline{0.1908} & 0.1460             & \textbf{0.1956}    \\
+		ArXiv            & 0.3987             & \textbf{0.4098}    & \underline{0.4094} \\
+		\bottomrule
+	\end{tabular}
+\end{table*}
+
+\begin{figure*}
+	\centering
+	\resizebox{\linewidth}{!}{%
+		\input{images/cross-rf_ranks/cross-rf_ranks.pgf}
+	}
+	\caption{Ranks-over-time of Cross-RF and reference methods over the progress of the optimization.}
+	\label{fig:cross-rf-ranks}
+\end{figure*}
