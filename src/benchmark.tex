@@ -14,7 +14,7 @@ We evaluate the following HPO methods:
 	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012}
 	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}
 \end{itemize}
-The methods were all implemented using the Optuna framework \cite{akiba_optuna_2019}. All algorithms run with the defualt settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.\todo{Maybe add a table of all settings?}
+The methods were all implemented using the Optuna framework \cite{akiba_optuna_2019}. All algorithms run with the default settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.\todo{Maybe add a table of all settings?}
 
 \subsection{Evaluation Routine}
 Each HPO method and dataset combination was evaluated independently 10 times to account for variability in performance due to random initialization and stochastic training processes. For each study, we used 2 stopping criteria to limit the number of trials:
