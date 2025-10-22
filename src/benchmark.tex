@@ -88,7 +88,7 @@ Table~\ref{tab:search-space} provides a detailed overview of the search space fo
 \end{table*}
 
 \subsection{Results and Analysis}
-Table~\ref{tab:benchmark-final-scores} lists the final F1 scores for each HPO method for each dataset.
+Table~\ref{tab:benchmark-final-scores} lists the final F1 scores for each HPO method for each dataset, averaged over 10 independent runs. Figure~\ref{fig:benchmark-ranks} then shows the ranks-over-time of the benchmarked HPO methods over the progress of the optimization.
 
 \begin{table*}
 	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
@@ -119,3 +119,10 @@ Table~\ref{tab:benchmark-final-scores} lists the final F1 scores for each HPO me
 	\caption{Ranks-over-time of the benchmarked HPO methods over the progress of the optimization.}
 	\label{fig:benchmark-ranks}
 \end{figure*}
+
+Three broad observations can be made from the results.
+\begin{itemize}
+	\item SMBO methods (BO and TPE) outperform non-SMBO methods (Random, Grid, QMC) consistently across all datasets. Only on the Squirrel and DBLP datasets does any other method reach the second best performance, otherwise SMBO methods take the top two spots. However, between BO and TPE there is no clear winner, with both methods achieving the best performance on multiple datasets. It is also worth noting that the advantage of SMBO methods only becomes pronounced after 10 trials, which is the startup period needed to build an initial model of the search space.
+	\item Simple methods like random search and grid search remain solid choices for HPO as they usually trail behind SMBO methods by only a small margin. The exceptions to this are the Computers and Flickr datasets, where the performance gap is significant.
+	\item Sobol QMC doesn't fulfill its promise of better coverage of the search space, as it consistently ranks worse than SMBO methods and on smaller datasets also worse than random search.
+\end{itemize}
