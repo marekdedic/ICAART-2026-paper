@@ -10,7 +10,7 @@ We evaluate the following HPO methods:
 \begin{itemize}
 	\item Grid Search
 	\item Random Search
-	\item Gaussian process-based Bayesian Optimization \cite{rasmussen_gaussian_2003}
+	\item Bayesian Optimization \cite{rasmussen_gaussian_2003}
 	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012}
 	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}
 \end{itemize}
@@ -96,7 +96,7 @@ Table~\ref{tab:final-scores} lists the final F1 scores for each HPO method for e
 	\centering
 	\begin{tabular}{lccccc}
 		\toprule
-		\textbf{Dataset} & \textbf{Random}    & \textbf{Grid} & \textbf{GP}        & \textbf{TPE}       & \textbf{QMC}       \\
+		\textbf{Dataset} & \textbf{Random}    & \textbf{Grid} & \textbf{BO}        & \textbf{TPE}       & \textbf{QMC}       \\
 		\midrule
 		Cora             & 0.8560             & 0.8491        & \textbf{0.8747}    & \underline{0.8659} & 0.8351             \\
 		CiteSeer         & 0.7146             & 0.7046        & \underline{0.7172} & \textbf{0.7236}    & 0.7089             \\
