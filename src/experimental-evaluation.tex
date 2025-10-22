@@ -1,7 +1,7 @@
 \section{\uppercase{Experimental evaluation of the Cross-RF method}}
 \label{sec:experimental-evaluation}
 
-In order to evaluate the proposed Cross-RF method, we conducted experiments on the same datasets as described in Section~\ref{sec:benchmark}, using the same evaluation routine and search space.
+In order to evaluate the proposed Cross-RF method, we conducted experiments on the same datasets as described in Section~\ref{sec:benchmark}, using the same evaluation routine and search space. For better readability, we limit our comparison to only the two highest-performing reference methods from Section~\ref{sec:benchmark}, which are Bayesian Optimisation (BO) and Tree Parzen Estimators (TPE).
 
 \subsection{Meta-model architecture}
 
@@ -12,9 +12,9 @@ Several small implementation details are worth mentioning. First, in each step o
 For the construction of the metadataset \( \mathcal{H} \) for a Cross-RF model trained on a dataset \( \mathcal{D} \), we used the remaining 8 datasets from the benchmark, excluding \( \mathcal{D} \).
 
 \subsection{Results and Analysis}
-\todo[inline]{Results}
+Table~\ref{tab:cross-rf-final-scores} lists the final F1 scores for Cross-RF and the 2 reference methods for each dataset, averaged over 10 independent runs. Figure~\ref{fig:cross-rf-ranks} then shows the ranks-over-time of the methods over the progress of the optimization.
 
-\begin{table*}
+\begin{table}
 	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
 	\label{tab:cross-rf-final-scores}
 	\centering
@@ -33,7 +33,7 @@ For the construction of the metadataset \( \mathcal{H} \) for a Cross-RF model t
 		ArXiv            & 0.3987             & \textbf{0.4098}    & \underline{0.4094} \\
 		\bottomrule
 	\end{tabular}
-\end{table*}
+\end{table}
 
 \begin{figure*}
 	\centering
@@ -43,3 +43,7 @@ For the construction of the metadataset \( \mathcal{H} \) for a Cross-RF model t
 	\caption{Ranks-over-time of Cross-RF and reference methods over the progress of the optimization.}
 	\label{fig:cross-rf-ranks}
 \end{figure*}
+
+From Table~\ref{tab:cross-rf-final-scores}, we can see that Cross-RF achieves the best final performance on 4 out of the 9 datasets, while being second best on another 3 datasets. Only on the CiteSeer and CoraFull datasets does Cross-RF perform worse than both reference methods. Overall, Cross-RF achieves an average rank of 1.78, outperforming both BO (2.0) and TPE (2.22).
+
+While Figure~\ref{fig:cross-rf-ranks} contains a lot of noise, we can broadly observe that Cross-RF starts off strong, achieving the best average rank in the early stages of the optimization, before BO and TPE pass the startup phase. As the optimization progresses, Cross-RF seems to be overtaken by BO (however, this is a very weak observation due to the noise), until finally, at the end of the optimization, Cross-RF regains its lead. This is broadly in line with the design of the Cross-RF method, which can at first leverage knowledge from other datasets to quickly find promising configurations, before relying on evaluations on the target dataset to refine its model and find the best configurations for it specifically.
