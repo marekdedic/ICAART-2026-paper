@@ -1,7 +1,7 @@
 \section{\uppercase{An RF-based Method for Graph HPO}}
 \label{sec:cross-rf}
 
-In this section, we introduce the metalearning Cross-RF method, a novel approach for HPO specifically designed for graph learning.
+In this section, we introduce the metalearning Cross-RF method, a novel approach for HPO specifically designed for graph learning, building on the previous work \cite{prochazka_which_2023}.
 
 Suppose we have a \name{graph property descriptor} function \( \delta : \mathrm{D} \to \mathfield{R}^d \) that maps a graph dataset \( \mathcal{D} \) to a vector of numerical properties \( \mathvec{d} \) (e.g., number of nodes, number of edges, average degree, etc.). This function allows us to capture the characteristics of different graph datasets in a structured manner. Suppose we also have a \name{metamodel} \( \mathcal{M}_\rho : \mathfield{R}^d \times \boldsymbol\Lambda \to \mathfield{R} \) that takes as input the properties of a graph dataset \( \delta \left( \mathcal{D} \right) \) and a hyper-parameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a model \( \hat{f}_\lambda \) trained on \( \mathcal{D} \) with the hyper-parameter configuration \( \lambda \). Using this, we can define the Cross-RF hyper-parameter tuning method as follows:
 \begin{equation*}
