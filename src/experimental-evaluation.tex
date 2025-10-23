@@ -3,7 +3,7 @@
 
 In order to evaluate the proposed Cross-RF method, we conducted experiments on the same datasets as described in Section~\ref{sec:benchmark}, using the same evaluation routine and search space. For better readability, we limit our comparison to only the two highest-performing reference methods from Section~\ref{sec:benchmark}, which are Bayesian Optimisation (BO) and Tree Parzen Estimators (TPE).
 
-\subsection{Meta-model Architecture}
+\subsection{Metamodel Architecture}
 
 The metamodel used in the Cross-RF method is a random forest regressor \cite{breiman_random_2001}, implemented using the \texttt{RandomForestRegressor} class from the \texttt{scikit-learn} library \cite{pedregosa_scikit-learn_2011}. The Random Forest was configured with 100 trees, and other hyperparameters were set to their default values, except for the maximum number of features to consider for each split, which was set to \( 30\% \) of the total number of features.
 
