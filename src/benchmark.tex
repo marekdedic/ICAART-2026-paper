@@ -8,13 +8,13 @@ We conduct our experiments on 9 standard graph datasets. The 3 \enquote{small} d
 
 We evaluate the following HPO methods:
 \begin{itemize}
-	\item Grid Search
-	\item Random Search
-	\item Bayesian Optimization \cite{rasmussen_gaussian_2003, snoek_practical_2012}
-	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012}
-	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}
+	\item Grid Search,
+	\item Random Search,
+	\item Bayesian Optimization \cite{rasmussen_gaussian_2003, snoek_practical_2012},
+	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012},
+	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}.
 \end{itemize}
-The methods were all implemented using the Optuna framework \cite{akiba_optuna_2019}. All algorithms run with the default settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.
+The methods were all implemented using the Optuna hyperparameter optimization framework \cite{akiba_optuna_2019}. All algorithms run with the default settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.
 
 \subsection{Evaluation Routine}
 Each HPO method and dataset combination was evaluated independently 10 times to account for variability in performance due to random initialization and stochastic training processes. For each study, we used 2 stopping criteria to limit the number of trials:
@@ -43,48 +43,49 @@ The values of \( M \) and \( T \) were set to ensure a fair comparison across al
 
 In our experiments, we used the well-studied and general framework of GraphSAGE \cite{hamilton_inductive_2017} as the base GNN architecture for node classification tasks. We defined a search space encompassing 8 hyperparameters that are critical to the performance of GraphSAGE models. The hyperparameters included in our search space are as follows:
 \begin{itemize}
-	\item \textbf{Number of layers}: The depth of the GNN.
-	\item \textbf{Hidden units per layer}: The number of hidden units in each layer.
-	\item \textbf{Activation function}: The non-linear activation function applied after each layer.
-	\item \textbf{Optimizer}: The optimization algorithm used for training the model.
-	\item \textbf{Dropout rate}: The dropout probability applied to the layers.
-	\item \textbf{Aggregation function}: The method used to aggregate neighbor information.
-	\item \textbf{\( L_2 \) regularization weight}: The weight of the \( L_2 \) regularization term.
+	\item \textbf{Number of layers}: The depth of the GNN,
+	\item \textbf{Hidden units per layer}: The number of hidden units in each layer,
+	\item \textbf{Activation function}: The non-linear activation function applied after each layer,
+	\item \textbf{Optimizer}: The optimization algorithm used for training the model,
+	\item \textbf{Dropout rate}: The dropout probability applied to the layers,
+	\item \textbf{Aggregation function}: The method used to aggregate neighbor information,
+	\item \textbf{\( L_2 \) regularization weight}: The weight of the \( L_2 \) regularization term,
 	\item \textbf{Learning rate}: The step size for the optimizer.
 \end{itemize}
-Table~\ref{tab:search-space} provides a detailed overview of the search space for each dataset. The ranges were chosen based on prior art on GNNs \cite{bronstein_geometric_2021, hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
+The search space included the ReLU and PReLU activation functions, Adam and AdamW optimizers, dropout rates of 0 and 0.5 and mean and max aggregation functions. Other hyperparameter ranges differ across datasets and are listed in Table~\ref{tab:search-space}. The ranges were chosen based on prior art on GNNs \cite{bronstein_geometric_2021, hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
 
 \begin{table*}
 	\caption{Hyperparameters based on dataset sizes.}
 	\label{tab:search-space}
-	\resizebox{\linewidth}{!}{%
-		\begin{tabular}{lcccccccccc}
+	\centering
+	\resizebox{0.7\linewidth}{!}{%
+		\begin{tabular}{lcccccc}
 			\toprule
-			\textbf{Dataset} & \textbf{Ep.} & \textbf{Lyrs.} & \textbf{HW} & \textbf{Act.}                                & \textbf{Opt.}                                & \textbf{Drop.}                          & \textbf{Agg.}                              & \textbf{ES} & \textbf{L2}                                       & \textbf{LR}                                          \\
+			\textbf{Dataset} & \textbf{Ep.} & \textbf{Lyrs.} & \textbf{HW} & \textbf{ES} & \textbf{L2}                                       & \textbf{LR}                                          \\
 			\midrule
-			\multicolumn{11}{l}{\textit{Small datasets}} \\
+			\multicolumn{7}{l}{\textit{Small datasets}} \\
 			\addlinespace
-			Cora             & 200          & 1--3           & 16--64      & \multirow{11}{*}{\shortstack{ReLU, \\ PReLU}} & \multirow{11}{*}{\shortstack{Adam, \\ AdamW}} & \multirow{11}{*}{\shortstack{0, \\ 0.5}} & \multirow{11}{*}{\shortstack{Mean, \\ Max}} & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			CiteSeer         & 200          & 1--3           & 16--64      &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			Squirrel         & 500          & 1--3           & 32--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Cora             & 200          & 1--3           & 16--64      & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			CiteSeer         & 200          & 1--3           & 16--64      & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Squirrel         & 500          & 1--3           & 32--128     & 20          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
 			\addlinespace
-			\multicolumn{11}{l}{\textit{Medium datasets}} \\
+			\multicolumn{7}{l}{\textit{Medium datasets}} \\
 			\addlinespace
-			PubMed           & 200          & 1--3           & 16--64      &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			CoraFull         & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			DBLP             & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			Computers        & 500          & 2--3           & 64--128     &                                              &                                              &                                         &                                            & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
-			Flickr           & 100          & 2--3           & 128--256    &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 5 \times 10^{-3} \), \( 10^{-3} \)                \\
+			PubMed           & 200          & 1--3           & 16--64      & 10          & 0, \( 5 \times 10^{-4} \), \( 5 \times 10^{-3} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			CoraFull         & 500          & 2--3           & 64--128     & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			DBLP             & 500          & 2--3           & 64--128     & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Computers        & 500          & 2--3           & 64--128     & 20          & 0, \( 5 \times 10^{-5} \), \( 5 \times 10^{-4} \) & \( 10^{-2} \), \( 5 \times 10^{-3} \), \( 10^{-3} \) \\
+			Flickr           & 100          & 2--3           & 128--256    & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 5 \times 10^{-3} \), \( 10^{-3} \)                \\
 			\addlinespace
-			\multicolumn{11}{l}{\textit{Large datasets}} \\
+			\multicolumn{7}{l}{\textit{Large datasets}} \\
 			\addlinespace
-			ArXiv            & 150          & 2--3           & 256--512    &                                              &                                              &                                         &                                            & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 10^{-2} \), \( 5 \times 10^{-3} \)                \\
+			ArXiv            & 150          & 2--3           & 256--512    & 10          & 0, \( 5 \times 10^{-4} \)                         & \( 10^{-2} \), \( 5 \times 10^{-3} \)                \\
 			\bottomrule
 		\end{tabular}
 	}
 	\vspace{0.05cm}
 
-	{\footnotesize \textbf{Abbreviations}: \textbf{Ep.}: Epochs, \textbf{Lyrs.}: Number of layers, \textbf{HW}: Hidden Layer Width, \textbf{Act.}: Activation Fn., \textbf{Opt.}: Optimizer, \textbf{Drop.}: Dropout Rate, \textbf{Agg.}: Aggregation Fn., \textbf{ES}: Early Stopping patience, \textbf{L2}: \( L_2 \) Regularization, \textbf{LR}: Learning Rate.}
+	{\footnotesize  \textbf{Abbreviations}: \textbf{Ep.}: Epochs, \textbf{Lyrs.}: Number of layers, \textbf{HW}: Hidden Layer Width, \textbf{ES}: Early Stopping patience, \textbf{L2}: \( L_2 \) Regularization, \textbf{LR}: Learning Rate.}
 \end{table*}
 
 \subsection{Results and Analysis}
@@ -124,5 +125,5 @@ Three broad observations can be made from the results.
 \begin{itemize}
 	\item SMBO methods (BO and TPE) outperform non-SMBO methods (Random, Grid, QMC) consistently across all datasets. Only on the Squirrel and DBLP datasets does any other method reach the second best performance, otherwise SMBO methods take the top two spots. However, between BO and TPE there is no clear winner, with both methods achieving the best performance on multiple datasets. It is also worth noting that the advantage of SMBO methods only becomes pronounced after 10 trials, which is the startup period needed to build an initial model of the search space.
 	\item Simple methods like random search and grid search remain solid choices for HPO as they usually trail behind SMBO methods by only a small margin. The exceptions to this are the Computers and Flickr datasets, where the performance gap is significant.
-	\item Sobol QMC doesn't fulfill its promise of better coverage of the search space, as it consistently ranks worse than SMBO methods and on smaller datasets also worse than random search.
+	\item Sobol QMC does not fulfill its promise of better coverage of the search space, as it consistently ranks worse than SMBO methods and on smaller datasets also worse than random search.
 \end{itemize}
