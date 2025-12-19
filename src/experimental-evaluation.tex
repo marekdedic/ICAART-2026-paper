@@ -10,7 +10,7 @@ Fot the metamodel, we used a scikit-learn Random Forest regressor with 100 trees
 For the construction of the metadataset \( \mathcal{H} \) for a Cross-RF model trained on a dataset \( \mathcal{D} \), we used the remaining 8 datasets from the benchmark, excluding \( \mathcal{D} \).
 
 \subsection{Results and Analysis}
-Table~\ref{tab:cross-rf-final-scores} lists the final F1 scores for Cross-RF and the 2 reference methods for each dataset, averaged over 10 independent runs.
+Table~\ref{tab:cross-rf-final-scores} lists the final F1 scores for Cross-RF and the 2 reference methods for each dataset, averaged over 10 independent runs. We can see that Cross-RF achieves the best final performance on 4 out of the 9 datasets, while being second best on another 3 datasets. Only on the CiteSeer and CoraFull datasets does Cross-RF perform worse than both reference methods. Overall, Cross-RF achieves an average rank of 1.78, outperforming both BO (2.0) and TPE (2.22).
 
 \begin{table}
 	\caption{Final F1 scores for each HPO method and for each dataset, averaged over 10 independent runs. The best method is \textbf{bold} and the second best is \underline{underlined}.}
@@ -32,5 +32,3 @@ Table~\ref{tab:cross-rf-final-scores} lists the final F1 scores for Cross-RF and
 		\bottomrule
 	\end{tabular}
 \end{table}
-
-From Table~\ref{tab:cross-rf-final-scores}, we can see that Cross-RF achieves the best final performance on 4 out of the 9 datasets, while being second best on another 3 datasets. Only on the CiteSeer and CoraFull datasets does Cross-RF perform worse than both reference methods. Overall, Cross-RF achieves an average rank of 1.78, outperforming both BO (2.0) and TPE (2.22).
