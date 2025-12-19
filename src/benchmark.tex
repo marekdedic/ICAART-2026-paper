@@ -4,15 +4,15 @@
 In this section, we present a benchmark study to evaluate the performance of different hyperparameter optimization (HPO) methods on Graph Neural Networks (GNNs). We focus on assessing the efficiency and effectiveness of various HPO techniques in optimizing GNN architectures for node classification tasks, which are the most common tasks and are the cornerstones of other techniques for e.g.\ graph classification as well.
 
 \subsection{Experimental Setup}
-We conduct our experiments on 9 standard graph datasets. The 3 \enquote{small} datasets were the datasets Cora and CiteSeer \cite{yang_revisiting_2016}, which were used with the \enquote{full} train-test split as in \cite{chen_fastgcn_2018}, and the Squirrel dataset \cite{rozemberczki_multi-scale_2021}. Five medium sized datasets were also used, the PubMed dataset \cite{yang_revisiting_2016}, the DBLP dataset and the full version of the Cora dataset \cite{bojchevski_deep_2018}, the Computers dataset \cite{shchur_pitfalls_2019} and the Flickr dataset \cite{zeng_graphsaint_2019}. Finally, one large dataset was used, the OGB ArXiv dataset \cite{hu_open_2021}.
+We conduct our experiments on 9 standard graph datasets. The 3 \enquote{small} datasets were the datasets Cora and CiteSeer \cite{yang_revisiting_2016}, which were used with the \enquote{full} train-test split, and the Squirrel dataset \cite{rozemberczki_multi-scale_2021}. Five medium sized datasets were also used, the PubMed dataset \cite{yang_revisiting_2016}, the DBLP dataset and the full version of the Cora dataset \cite{bojchevski_deep_2018}, the Computers dataset \cite{shchur_pitfalls_2019} and the Flickr dataset \cite{zeng_graphsaint_2019}. Finally, one large dataset was used, the OGB ArXiv dataset \cite{hu_open_2021}.
 
 We evaluate the following HPO methods:
 \begin{itemize}
 	\item Grid Search,
 	\item Random Search,
-	\item Bayesian Optimization \cite{rasmussen_gaussian_2003, snoek_practical_2012},
-	\item Sobol Quasi-Monte Carlo \cite{sobol_distribution_1967, bergstra_random_2012},
-	\item Tree-structured Parzen Estimator (TPE) \cite{bergstra_algorithms_2011}.
+	\item Bayesian Optimization,
+	\item Sobol Quasi-Monte Carlo,
+	\item Tree-structured Parzen Estimator (TPE).
 \end{itemize}
 The methods were all implemented using the Optuna hyperparameter optimization framework \cite{akiba_optuna_2019}. All algorithms run with the default settings, with 2 exceptions: (1) for Sobol, we use the scrambling method of \cite{matousek_l2-discrepancy_1998} and (2) for TPE, we use the multivariate variant \cite{falkner_bohb_2018}.
 
@@ -52,7 +52,7 @@ In our experiments, we used the well-studied and general framework of GraphSAGE 
 	\item \textbf{\( L_2 \) regularization weight}: The weight of the \( L_2 \) regularization term,
 	\item \textbf{Learning rate}: The step size for the optimizer.
 \end{itemize}
-The search space included the ReLU and PReLU activation functions, Adam and AdamW optimizers, dropout rates of 0 and 0.5 and mean and max aggregation functions. Other hyperparameter ranges differ across datasets and are listed in Table~\ref{tab:search-space}. The ranges were chosen based on prior art on GNNs \cite{bronstein_geometric_2021, hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
+The search space included the ReLU and PReLU activation functions, Adam and AdamW optimizers, dropout rates of 0 and 0.5 and mean and max aggregation functions. Other hyperparameter ranges differ across datasets and are listed in Table~\ref{tab:search-space}. The ranges were chosen based on prior art on GNNs \cite{hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
 
 \begin{table*}
 	\caption{Hyperparameters based on dataset sizes.}

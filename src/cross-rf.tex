@@ -1,7 +1,7 @@
 \section{\uppercase{An RF-based Method for Graph HPO}}
 \label{sec:cross-rf}
 
-In this section, we introduce the metalearning Cross-RF method, a novel approach for HPO specifically designed for graph learning, building on our previous work \cite{prochazka_which_2023}.
+In this section, we introduce the metalearning Cross-RF method, a novel approach for HPO specifically designed for graph learning, building on our previous metamodel work \cite{prochazka_which_2023} and repurposing it for hyperparameter optimization.
 
 Suppose we have a \name{graph property descriptor} function \( \delta : \mathrm{D} \to \mathfield{R}^d \) that maps a graph dataset \( \mathcal{D} \) to a vector of numerical properties \( \mathvec{d} \) (e.g., number of nodes, number of edges, average degree, etc.). This function allows us to capture the characteristics of different graph datasets in a structured manner. Suppose we also have a \name{metamodel} \( \mathcal{M}_\rho : \mathfield{R}^d \times \boldsymbol\Lambda \to \mathfield{R} \) that takes as input the properties of a graph dataset \( \delta \left( \mathcal{D} \right) \) (i.e.\ the metafeatures) and a hyperparameter configuration \( \lambda \), and outputs an estimate of a performance metric \( \rho \) (e.g., accuracy, F1-score) of a model \( \hat{f}_\lambda \) trained on \( \mathcal{D} \) with the hyperparameter configuration \( \lambda \). Using this, we can define the Cross-RF hyperparameter tuning method as follows:
 \begin{equation*}
@@ -37,12 +37,12 @@ Table~\ref{tab:graph-properties} lists the graph dataset properties considered i
 		\textbf{Edge count}                                & \crossmark    & \crossmark         & \crossmark          & Number of edges. \\
 		\textbf{Number of components}                      & \crossmark    & \checkmark         & \crossmark          & Number of connected components of the graph. \\
 		\textbf{Average node degree}                       & \crossmark    & \checkmark         & \crossmark          & Average node degree in the graph. \\
-		\textbf{Global assortativity}                      & \crossmark    & \checkmark         & \crossmark          & Measure of the tendency of nodes to connect with other similar nodes, rather than dissimilar nodes~\cite{newman_mixing_2003}. \\
+		\textbf{Global assortativity}                      & \crossmark    & \checkmark         & \crossmark          & Measure of the tendency of nodes to connect with other similar nodes, rather than dissimilar nodes. \\
 		\textbf{Attribute similarity}                      & \crossmark    & \checkmark         & \checkmark          & Average cosine similarity of attributes across all edges in the graph. \\
-		\textbf{Attribute homophily}                       & \checkmark    & \checkmark         & \crossmark          & Measure of how clustered together are nodes with similar attributes~\cite{yang_diverse_2021}. \\
-		\textbf{Edge homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of edges connecting nodes of the same class~\cite{zhu_beyond_2020}. \\
-		\textbf{Node homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of node neighbours having the same class as the node in question, averaged over all nodes~\cite{pei_geom-gcn_2020}. \\
-		\textbf{Class homophily}                           & \checkmark    & \checkmark         & \crossmark          & A modification of node homophily that is invariant to the number of classes~\cite{lim_large_2021}. \\
+		\textbf{Attribute homophily}                       & \checkmark    & \checkmark         & \crossmark          & Measure of how clustered together are nodes with similar attributes. \\
+		\textbf{Edge homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of edges connecting nodes of the same class. \\
+		\textbf{Node homophily}                            & \checkmark    & \checkmark         & \crossmark          & Fraction of node neighbours having the same class as the node in question, averaged over all nodes. \\
+		\textbf{Class homophily}                           & \checkmark    & \checkmark         & \crossmark          & A modification of node homophily that is invariant to the number of classes. \\
 		\textbf{Ratio of positive nodes of degree $>1$}    & \checkmark    & \checkmark         & \crossmark          & Ratio of positive nodes with degree greater than one. \\
 		\textbf{Fraction of positive nodes of degree $>2$} & \checkmark    & \checkmark         & \crossmark          & The fraction of positive nodes with degree greater than two, out of those with degree greater than one. \\
 		\textbf{Average positive node degree}              & \checkmark    & \checkmark         & \crossmark          & Average node degree in the sub-graph restricted to positive nodes. \\
