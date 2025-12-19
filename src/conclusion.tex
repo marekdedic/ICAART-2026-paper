@@ -8,19 +8,6 @@ Our first contribution was to conduct a systematic benchmark of five classical H
 Our second contribution was the introduction and validation of a transfer-learning framework for GNN hyperparameter optimization. By leveraging metalearning, we demonstrated that knowledge from previously completed HPO tasks can be effectively transferred to new, unseen datasets. This approach successfully "warm-starts" the optimization process, substantially reducing the number of evaluations required to find a high-performing set of hyperparameters.
 
 \subsection{Future Work}
-
-The first, perhaps most immediate, direction for future work is to broaden our benchmark by:
-\begin{itemize}
-	\item Including a broader range of GNN architectures, such as teh GAT architecture, to assess the generalizability of our findings across different model types.
-	\item Considering other performance metrics such as accuracy or AUC-ROC, to provide a more comprehensive evaluation of HPO methods.
-	\item Comparing to newer HPO methods, including those specifically designed for deep learning and GNNs, to evaluate their performance relative to the classical methods studied here.
-\end{itemize}
-
-Other, less immediate, but maybe more exciting directions for future work include:
-\begin{itemize}
-	\item Pre-training the metamodel on synthetic datasets generated from known graph models (e.g. Erdős–Rényi models, stochastic block models, preferential attachment models) to evaluate whether this can further improve transfer learning performance by providing a richer and more diverse training set for the meta-learner.
-	\item Using a different metamodel architecture which is better suited to continuous search spaces.
-	\item Incorporating the metamodel as a surrogate model within an SMBO framework, to combine the benefits of both approaches.
-\end{itemize}
+Future work focuses on broadening the benchmark and enhancing the transfer learning framework. We plan to extend the evaluation to additional architectures (e.g.\ GAT), diverse metrics (e.g.\ accuracy, AUC-ROC), and newer, deep-learning-specific HPO methods. Additionally, we aim to improve Cross-RF performance by pre-training on synthetic datasets (e.g.\ Erdős–Rényi, stochastic block models), adopting metamodels suited for continuous spaces and incorporating the metamodel as a surrogate within an SMBO framework.
 
 In summary, this work lays a solid foundation for more efficient and effective hyperparameter optimization in GNNs, with significant implications for their practical deployment in real-world applications. The proposed Cross-RF method is promising, however there remains ample opportunity for further research and refinement to fully realize its potential.
