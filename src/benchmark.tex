@@ -41,18 +41,7 @@ The values of \( M \) and \( T \) were set to ensure a fair comparison across al
 
 \subsection{Search Spaces}
 
-In our experiments, we used the well-studied and general framework of GraphSAGE \cite{hamilton_inductive_2017} as the base GNN architecture for node classification tasks. We defined a search space encompassing 8 hyperparameters that are critical to the performance of GraphSAGE models. The hyperparameters included in our search space are as follows:
-\begin{itemize}
-	\item \textbf{Number of layers}: The depth of the GNN,
-	\item \textbf{Hidden units per layer}: The number of hidden units in each layer,
-	\item \textbf{Activation function}: The non-linear activation function applied after each layer,
-	\item \textbf{Optimizer}: The optimization algorithm used for training the model,
-	\item \textbf{Dropout rate}: The dropout probability applied to the layers,
-	\item \textbf{Aggregation function}: The method used to aggregate neighbor information,
-	\item \textbf{\( L_2 \) regularization weight}: The weight of the \( L_2 \) regularization term,
-	\item \textbf{Learning rate}: The step size for the optimizer.
-\end{itemize}
-The search space included the ReLU and PReLU activation functions, Adam and AdamW optimizers, dropout rates of 0 and 0.5 and mean and max aggregation functions. Other hyperparameter ranges differ across datasets and are listed in Table~\ref{tab:search-space}. The ranges were chosen based on prior art on GNNs \cite{hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
+In our experiments, we used the well-studied and general framework of GraphSAGE \cite{hamilton_inductive_2017} as the base GNN architecture for node classification tasks. We defined a search space encompassing 8 hyperparameters that are critical to the performance of GraphSAGE models. The search space included the ReLU and PReLU activation functions, Adam and AdamW optimizers, dropout rates of 0 and 0.5 and mean and max aggregation functions. Other hyperparameters and their ranges differ across datasets and are listed in Table~\ref{tab:search-space}. The ranges were chosen based on prior art on GNNs \cite{hamilton_inductive_2017, zeng_graphsaint_2019, zhu_beyond_2020, yang_vqgraph_2023, den_boef_graphpope_2021, li_finding_2022}.
 
 \begin{table*}
 	\caption{Hyperparameters based on dataset sizes.}
