@@ -35,15 +35,4 @@ Table~\ref{tab:cross-rf-final-scores} lists the final F1 scores for Cross-RF and
 	\end{tabular}
 \end{table}
 
-\begin{figure*}
-	\centering
-	\resizebox{\linewidth}{!}{%
-		\input{images/cross-rf_ranks/cross-rf_ranks.pgf}
-	}
-	\caption{Ranks-over-time of Cross-RF and reference methods over the progress of the optimization, aggreagated over 10 independent runs for each of 9 datasets.}
-	\label{fig:cross-rf-ranks}
-\end{figure*}
-
 From Table~\ref{tab:cross-rf-final-scores}, we can see that Cross-RF achieves the best final performance on 4 out of the 9 datasets, while being second best on another 3 datasets. Only on the CiteSeer and CoraFull datasets does Cross-RF perform worse than both reference methods. Overall, Cross-RF achieves an average rank of 1.78, outperforming both BO (2.0) and TPE (2.22).
-
-While Figure~\ref{fig:cross-rf-ranks} contains a lot of noise, we can broadly observe that Cross-RF starts off strong, achieving the best average rank in the early stages of the optimization, before BO and TPE pass the startup phase. As the optimization progresses, Cross-RF seems to be overtaken by BO (however, this is a very weak observation due to the noise), until finally, at the end of the optimization, Cross-RF regains its lead. This is broadly in line with the design of the Cross-RF method, which can at first leverage knowledge from other datasets to quickly find promising configurations, before relying on evaluations on the target dataset to refine its model and find the best configurations for it specifically.
